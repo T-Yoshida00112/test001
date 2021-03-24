@@ -32,8 +32,6 @@ $breakpoints: ( //キー　　値
     }
 }
 
-
-
 body {
     line-height: 1.5;
     font-family: "Playfair Display";
@@ -45,10 +43,9 @@ body {
     }
 
     @include mq(sm) {
-        fontsize: 13px;
+        font-size: 13px;
     }
 }
-
 
 a {
     text-decoration: none;
@@ -56,6 +53,20 @@ a {
 
     :hover {
         opacity: 0.7;
+    }
+}
+
+.pc{
+    display: block;
+    @include mq(md) {
+        display: none;
+    }
+}
+
+.sp{
+    display: none;
+    @include mq(md) {
+        display: block;
     }
 }
 
@@ -157,8 +168,9 @@ a {
 //header////////////////////////////////////
 .header {
     width: 100%;
-    background-color: white;
-
+    position: fixed;
+    z-index: 10001;
+    top: 0;
     &-inner {
         height: 160px;
         width: 90%;
@@ -209,6 +221,22 @@ a {
             }
         }
     }
+    &-menu-sp{
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        background-color: whitesmoke;
+        z-index: 10000;
+        ul{
+            margin-top: 25%;
+            li{
+                font-size: 20px;
+                margin-bottom: 20px;
+                
+            }
+        }
+    }
 }
 
 
@@ -217,6 +245,7 @@ a {
     width: 90%;
     margin: auto;
     max-width: 1300px;
+    margin-top: 160px;
     img{
         width: 100%;
     }
@@ -464,6 +493,7 @@ a {
         display: flex;
         justify-content: space-between;
         margin: auto;
+        flex-wrap: wrap;
         width: 80%;
     }
 
@@ -476,9 +506,7 @@ a {
     }
 
     &-menu {
-        
         width: 350px;
-
         ul {
             display: flex;
             justify-content: start;
@@ -492,6 +520,15 @@ a {
                 }
             }
         }
+        @include mq(sm) {
+            width: 100%;
+            margin-bottom: 20px;
+        }
     }
+    .sns-wrapper{
+        @include mq(sm) {
+            width: 100%;
 
+        }
+    }
 }
