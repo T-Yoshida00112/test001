@@ -15,20 +15,40 @@ $text-grey: #b4ad9e;
 
 //共通/////////////////////////////////////
 //マップ型変数breakpointsを定義
-$breakpoints: ( //キー　　値
-    'sm': 'screen and (max-width: 576px)',
-    'md': 'screen and (max-width: 768px)',
-    'lg': 'screen and (max-width: 992px)',
-    'xl': 'screen and (max-width: 1200px)'
+$breakpoints: (
+    //キー　　値
+    "sm": "screen and (max-width: 576px)",
+    "md": "screen and (max-width: 768px)",
+    "lg": "screen and (max-width: 992px)",
+    "xl": "screen and (max-width: 1200px)"
 ) !default;
 
 //メディアクエリ用のmixinを定義。デフォ値はmd
 @mixin mq($breakpoint: md) {
-
     //map-get(マップ型変数, キー)で値を取得
     @media #{map-get($breakpoints, $breakpoint)} {
         //この中をカスタムできる
         @content;
+    }
+}
+@keyframes translate_r_100 {
+    0% {
+        transform: translateX(0px);
+    }
+    60% {
+        transform: translateX(-105%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+@keyframes translate_l_100 {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0%);
     }
 }
 
@@ -56,14 +76,14 @@ a {
     }
 }
 
-.pc{
+.pc {
     display: block;
     @include mq(md) {
         display: none;
     }
 }
 
-.sp{
+.sp {
     display: none;
     @include mq(md) {
         display: block;
@@ -82,14 +102,14 @@ a {
     }
 }
 
-.sub-text{
+.sub-text {
     color: $text-white;
     font-family: "NotoSansCJKjp";
     font-size: 14px;
-    line-height: 1.0;
+    line-height: 1;
 }
 
-.large-text{
+.large-text {
     color: $text-main;
     font-size: 30px;
 }
@@ -99,14 +119,14 @@ a {
     clear: both;
     display: block;
 }
-.link-wrapper{
+.link-wrapper {
     margin: 30px 0;
 }
-.comment-link{
+.comment-link {
     color: $text-white;
     font-family: "NotoSansCJKjp";
     font-size: 14px;
-    line-height: 1.0;
+    line-height: 1;
     margin-top: 50px;
 }
 .btn {
@@ -115,9 +135,16 @@ a {
     line-height: 2;
     padding: 15px;
     border: 1px solid $text-black;
+    transition: 1s;
+    &-more{
+        &:hover{
+            background-color: #000;
+            color: $text-white;
+        }
+    }
 }
 
-.icon{
+.icon {
     padding: 0 4px;
     color: $text-grey;
 }
@@ -127,17 +154,21 @@ a {
     flex-wrap: wrap;
     justify-content: space-between;
 
-    .photodiary{
-        width : -webkit-calc(100% - 300px) ;
-        width : calc(100% - 300px) ;
+    .photodiary {
+        width: -webkit-calc(100% - 300px);
+        width: calc(100% - 300px);
+        @include mq(md) {
+            width: 100%;
+            margin-bottom: 120px;
+        }
     }
-    &-nowrap{
+    &-nowrap {
         @extend .flex-wrapper;
         flex-wrap: nowrap;
     }
 }
 
-.itaric-wrapper{
+.itaric-wrapper {
     padding: 20px 15px;
 }
 
@@ -151,18 +182,18 @@ a {
     @extend .sub-text;
     margin-top: 50px;
 }
-.mb-60{
+.mb-60 {
     margin-bottom: 60px;
 }
-.ta-l{
+.ta-l {
     text-align-last: left;
 }
 
-.theme-color-txt{
-    color:$theme-color;
+.theme-color-txt {
+    color: $theme-color;
 }
-.sub-color-txt{
-    color:$sub-color;
+.sub-color-txt {
+    color: $sub-color;
 }
 
 //header////////////////////////////////////
@@ -171,6 +202,7 @@ a {
     position: fixed;
     z-index: 10001;
     top: 0;
+    background-color: $bg-white;
     &-inner {
         height: 160px;
         width: 90%;
@@ -180,9 +212,7 @@ a {
         justify-content: space-between;
         align-items: center;
 
-
         .header-logo {
-
             .header-ttl {
                 color: $theme-color;
                 font-weight: bold;
@@ -194,6 +224,51 @@ a {
 
         .header-menu {
             margin-left: auto;
+            cursor: pointer;
+            .header_toggle {
+                height: 36px;
+                padding: 12px 0;
+            }
+            .line {
+                content: "";
+                top: 10px;
+                width: 40px;
+                height: 2px;
+                background-color: #000;
+                position: relative;
+                transition: 1s;
+                &::before {
+                    content: "";
+                    transition: 1s;
+                    position: absolute;
+                    width: 40px;
+                    height: 2px;
+                    background-color: #000;
+                    transform: translateY(-10px);
+                }
+                &::after {
+                    content: "";
+                    transition: 1s;
+                    position: absolute;
+                    width: 40px;
+                    height: 2px;
+                    background-color: #000;
+                    transform: translateY(10px);
+                }
+            }
+            .rotate {
+                transition: 1s;
+                transform: rotate(45deg);
+                &::before {
+                    transition: 1s;
+                    transform: translateY(0px);
+                }
+                &::after {
+                    top: 0px;
+                    transition: 1s;
+                    transform: translateY(0px) rotate(90deg);
+                }
+            }
         }
 
         ul {
@@ -216,190 +291,203 @@ a {
                     font-weight: bold;
                     line-height: 2;
                     padding: 29px 30px;
-
                 }
             }
         }
+        @include mq(md) {
+            height: 60px;
+        }
     }
-    &-menu-sp{
+    &-menu-sp {
         top: 0;
         width: 100vw;
         height: 100vh;
         position: fixed;
         background-color: whitesmoke;
         z-index: 10000;
-        ul{
+        margin-left: 100%;
+        padding-left: 60px;
+        ul {
             margin-top: 25%;
-            li{
+            li {
                 font-size: 20px;
                 margin-bottom: 20px;
-                
             }
         }
     }
+    
+}
+.menu_slidein {
+    animation: translate_r_100 1s forwards;
+}
+.menu_slideout {
+    animation: translate_l_100 1s forwards;
 }
 
-
 //top////////////////////////
-.top-pic{
+.top-pic {
     width: 90%;
     margin: auto;
     max-width: 1300px;
     margin-top: 160px;
-    img{
+    img {
         width: 100%;
     }
     @include mq(md) {
         width: 100%;
+        margin-top: 60px;
     }
 }
 
-.photodiary{
+.photodiary {
     margin-top: 30px;
-    &-ttl{
+    &-ttl {
         margin: 15px 0;
         font-size: 30px;
     }
-    
 }
-.shere-wrapper{
+.shere-wrapper {
     @extend .sub-text;
     margin: 10px 0;
     text-align: right;
     font-size: 14px;
-    i{
+    i {
         font-size: 16px;
     }
 }
 
 //article///
-.article{
+.article {
     margin-top: 120px;
-    &-wrapper{
+    &-wrapper {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
     }
 
-    &-content{
+    &-content {
+        display: block;
         margin-bottom: 80px;
         width: 45%;
-        &-ttl{
+        &-ttl {
             font-size: 30px;
             line-height: 1.2;
             margin-top: 5px;
             margin-bottom: 20px;
         }
-        &-txt{
+        &-txt {
             overflow: hidden;
             height: 60px;
         }
         @include mq(md) {
             width: 48%;
-            &-ttl{
+            &-ttl {
                 font-size: 24px;
             }
         }
         @include mq(sm) {
             width: 100%;
-            &-ttl{
+            &-ttl {
                 font-size: 20px;
             }
         }
     }
-    .section-ttl
-    {
+    .section-ttl {
         margin-top: 24px;
-        a{
+        a {
             @extend .sub-text;
         }
     }
-    .btn-wrapper{
+    .btn-wrapper {
         margin: 60px auto;
     }
 }
 
-.signup{
+.signup {
     background-color: $bg-grey;
     padding: 60px 0;
     text-align: center;
     margin: 90px 0;
 
-    &-mes{
+    &-mes {
         font-size: 30px;
         color: $text-black;
         padding-bottom: 50px;
     }
-    &-content{
+    &-content {
         border-bottom: 1px solid $text-black;
         width: 370px;
         margin: auto;
     }
-    
-    &-email{
+
+    &-email {
         font-family: "Playfair Display";
         background: none;
         border: none;
         padding: 15px 5px;
         width: 85%;
     }
-    img{
+    img {
         width: 10%;
     }
     @include mq(sm) {
-        &-mes{
+        &-mes {
             font-size: 30px;
             color: $text-black;
             padding-bottom: 50px;
         }
-        &-content{
+        &-content {
             width: 90%;
             margin: auto;
         }
-        
     }
 }
 
-.recommend{
+.recommend {
     background-color: $bg-grey;
     margin-top: 40px;
     padding: 60px 0px;
 
-    .section-ttl{
+    .section-ttl {
         margin-top: 0;
         margin-bottom: 26px;
     }
-    &-content{
+    &-content {
+        display: block;
         width: 30%;
-        h3{
+        h3 {
             font-size: 20px;
+        }
+        @include mq(sm) {
+            width: 90%;
+            margin: auto;
+            margin-bottom: 30px;
         }
     }
 }
 
-.map{
+.map {
     margin-top: 180px;
     margin-bottom: 240px;
 }
 
-.comment{
+.comment {
     margin-top: 40px;
-    
-    &s-num{
+
+    &s-num {
         @extend .sub-text;
         margin-bottom: 25px;
     }
-    &-wrapper{
+    &-wrapper {
         margin: 25px 0px;
         display: flex;
         justify-content: space-between;
         flex-wrap: nowrap;
-
     }
-    &-userpic{
+    &-userpic {
         width: 100px;
-        
-        .user-icon{
+
+        .user-icon {
             width: 72px;
             height: 72px;
             line-height: 72px;
@@ -410,27 +498,27 @@ a {
             border-radius: 36px;
             background-color: #ededea;
 
-            &-green{
+            &-green {
                 background-color: #cae5e0;
             }
         }
     }
 
-    &-content{
-        width : -webkit-calc(100% - 100px) ;
-        width : calc(100% - 100px) ;
-        .user-name{
+    &-content {
+        width: -webkit-calc(100% - 100px);
+        width: calc(100% - 100px);
+        .user-name {
             font-weight: bold;
             font-size: 14px;
             margin-bottom: 10px;
         }
-        &-txt{
+        &-txt {
             line-height: 1.5;
             min-height: 30px;
             padding-bottom: 10px;
         }
     }
-    &-post{
+    &-post {
         width: 100%;
         height: 74px;
         border-radius: 5px;
@@ -438,39 +526,46 @@ a {
         padding-left: 20px;
         border: 1px solid $bg-black;
     }
-
 }
 
-.side{
+.side {
     margin-top: 60px;
     width: 260px;
+    .banner{
+        width: 250px;
+        height: 250px;
+    }
+    @include mq(md) {
+        width: 80%;
+        margin: auto;
+    }
 }
-.about{
-    &-ttl{
+.about {
+    &-ttl {
         margin: 15px 0;
         font-size: 24px;
     }
-    &-txt{
+    &-txt {
         font-size: 12px;
         height: 50px;
         overflow: hidden;
         margin-bottom: 20px;
     }
-    .shere-wrapper{
+    .shere-wrapper {
         text-align-last: left;
     }
 }
-.toppost{
+.toppost {
     margin-top: 40px;
-    &-lists{
+    &-lists {
         list-style: disc;
         list-style-position: inside;
         font-size: 16px;
 
-        &-content{
+        &-content {
             margin: 13px 0;
         }
-        .comment-num{
+        .comment-num {
             @extend .sub-text;
             font-size: 12px;
             margin-top: 5px;
@@ -478,7 +573,7 @@ a {
     }
 }
 
-.ad{
+.ad {
     margin-top: 50px;
 }
 
@@ -489,7 +584,7 @@ a {
     padding: 20px;
     font-size: 14px;
 
-    &-inner{
+    &-inner {
         display: flex;
         justify-content: space-between;
         margin: auto;
@@ -497,11 +592,11 @@ a {
         width: 80%;
     }
 
-    a{
+    a {
         color: $text-black;
     }
-    
-    .icon{
+
+    .icon {
         color: $text-black;
     }
 
@@ -525,10 +620,9 @@ a {
             margin-bottom: 20px;
         }
     }
-    .sns-wrapper{
+    .sns-wrapper {
         @include mq(sm) {
             width: 100%;
-
         }
     }
 }

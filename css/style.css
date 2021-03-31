@@ -1,3 +1,24 @@
+@keyframes translate_r_100 {
+  0% {
+    transform: translateX(0px);
+  }
+  60% {
+    transform: translateX(-105%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes translate_l_100 {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
 body {
   line-height: 1.5;
   font-family: "Playfair Display";
@@ -68,7 +89,7 @@ a :hover {
   color: #c3beb2;
   font-family: "NotoSansCJKjp";
   font-size: 14px;
-  line-height: 1.0;
+  line-height: 1;
 }
 
 .large-text {
@@ -90,7 +111,7 @@ a :hover {
   color: #c3beb2;
   font-family: "NotoSansCJKjp";
   font-size: 14px;
-  line-height: 1.0;
+  line-height: 1;
   margin-top: 50px;
 }
 
@@ -100,6 +121,12 @@ a :hover {
   line-height: 2;
   padding: 15px;
   border: 1px solid #000;
+  transition: 1s;
+}
+
+.btn-more:hover {
+  background-color: #000;
+  color: #c3beb2;
 }
 
 .icon {
@@ -116,6 +143,13 @@ a :hover {
 .flex-wrapper .photodiary, .flex-wrapper-nowrap .photodiary {
   width: -webkit-calc(100% - 300px);
   width: calc(100% - 300px);
+}
+
+@media screen and (max-width: 768px) {
+  .flex-wrapper .photodiary, .flex-wrapper-nowrap .photodiary {
+    width: 100%;
+    margin-bottom: 120px;
+  }
 }
 
 .flex-wrapper-nowrap {
@@ -157,6 +191,7 @@ a :hover {
   position: fixed;
   z-index: 10001;
   top: 0;
+  background-color: #ffffff;
 }
 
 .header-inner {
@@ -179,6 +214,58 @@ a :hover {
 
 .header-inner .header-menu {
   margin-left: auto;
+  cursor: pointer;
+}
+
+.header-inner .header-menu .header_toggle {
+  height: 36px;
+  padding: 12px 0;
+}
+
+.header-inner .header-menu .line {
+  content: "";
+  top: 10px;
+  width: 40px;
+  height: 2px;
+  background-color: #000;
+  position: relative;
+  transition: 1s;
+}
+
+.header-inner .header-menu .line::before {
+  content: "";
+  transition: 1s;
+  position: absolute;
+  width: 40px;
+  height: 2px;
+  background-color: #000;
+  transform: translateY(-10px);
+}
+
+.header-inner .header-menu .line::after {
+  content: "";
+  transition: 1s;
+  position: absolute;
+  width: 40px;
+  height: 2px;
+  background-color: #000;
+  transform: translateY(10px);
+}
+
+.header-inner .header-menu .rotate {
+  transition: 1s;
+  transform: rotate(45deg);
+}
+
+.header-inner .header-menu .rotate::before {
+  transition: 1s;
+  transform: translateY(0px);
+}
+
+.header-inner .header-menu .rotate::after {
+  top: 0px;
+  transition: 1s;
+  transform: translateY(0px) rotate(90deg);
 }
 
 .header-inner ul {
@@ -205,6 +292,12 @@ a :hover {
   padding: 29px 30px;
 }
 
+@media screen and (max-width: 768px) {
+  .header-inner {
+    height: 60px;
+  }
+}
+
 .header-menu-sp {
   top: 0;
   width: 100vw;
@@ -212,6 +305,8 @@ a :hover {
   position: fixed;
   background-color: whitesmoke;
   z-index: 10000;
+  margin-left: 100%;
+  padding-left: 60px;
 }
 
 .header-menu-sp ul {
@@ -221,6 +316,14 @@ a :hover {
 .header-menu-sp ul li {
   font-size: 20px;
   margin-bottom: 20px;
+}
+
+.menu_slidein {
+  animation: translate_r_100 1s forwards;
+}
+
+.menu_slideout {
+  animation: translate_l_100 1s forwards;
 }
 
 .top-pic {
@@ -237,6 +340,7 @@ a :hover {
 @media screen and (max-width: 768px) {
   .top-pic {
     width: 100%;
+    margin-top: 60px;
   }
 }
 
@@ -270,6 +374,7 @@ a :hover {
 }
 
 .article-content {
+  display: block;
   margin-bottom: 80px;
   width: 45%;
 }
@@ -367,11 +472,20 @@ a :hover {
 }
 
 .recommend-content {
+  display: block;
   width: 30%;
 }
 
 .recommend-content h3 {
   font-size: 20px;
+}
+
+@media screen and (max-width: 576px) {
+  .recommend-content {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 30px;
+  }
 }
 
 .map {
@@ -443,6 +557,18 @@ a :hover {
 .side {
   margin-top: 60px;
   width: 260px;
+}
+
+.side .banner {
+  width: 250px;
+  height: 250px;
+}
+
+@media screen and (max-width: 768px) {
+  .side {
+    width: 80%;
+    margin: auto;
+  }
 }
 
 .about-ttl {
