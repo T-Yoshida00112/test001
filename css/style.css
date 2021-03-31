@@ -98,6 +98,12 @@ a :hover {
   width: calc(100% - 300px);
 }
 
+@media screen and (max-width: 576px) {
+  .flex-wrapper .photodiary, .flex-wrapper-nowrap .photodiary {
+    width: 100%;
+  }
+}
+
 .flex-wrapper-nowrap {
   flex-wrap: nowrap;
 }
@@ -333,6 +339,12 @@ a :hover {
   font-size: 20px;
 }
 
+@media screen and (max-width: 576px) {
+  .recommend-content {
+    width: 100%;
+  }
+}
+
 .map {
   margin-top: 180px;
   margin-bottom: 240px;
@@ -404,6 +416,12 @@ a :hover {
   width: 260px;
 }
 
+@media screen and (max-width: 576px) {
+  .side {
+    width: 100%;
+  }
+}
+
 .about-ttl {
   margin: 15px 0;
   font-size: 24px;
@@ -453,9 +471,16 @@ a :hover {
 
 .footer-inner {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin: auto;
   width: 80%;
+}
+
+@media screen and (max-width: 576px) {
+  .footer-inner {
+    width: 90%;
+  }
 }
 
 .footer a {
@@ -482,4 +507,10 @@ a :hover {
 
 .footer-menu ul li:last-child {
   border-right: none;
+}
+
+@media screen and (max-width: 576px) {
+  .footer-menu {
+    width: 100%;
+  }
 }

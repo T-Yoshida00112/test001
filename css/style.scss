@@ -1,5 +1,4 @@
 //変数////////////////////////////////////
-
 $theme-color: #f0f0f0;
 $sub-color: #30d0ed;
 $bg-grey: #f0f0f0;
@@ -119,11 +118,15 @@ a {
     .photodiary{
         width : -webkit-calc(100% - 300px) ;
         width : calc(100% - 300px) ;
+        @include mq(sm) {
+            width: 100%;
+        }
     }
     &-nowrap{
         @extend .flex-wrapper;
         flex-wrap: nowrap;
     }
+    
 }
 
 .itaric-wrapper{
@@ -345,6 +348,9 @@ a {
         h3{
             font-size: 20px;
         }
+        @include mq(sm) {
+            width: 100%;
+        } 
     }
 }
 
@@ -415,6 +421,9 @@ a {
 .side{
     margin-top: 60px;
     width: 260px;
+    @include mq(sm) {
+        width: 100%;
+    }
 }
 .about{
     &-ttl{
@@ -462,9 +471,14 @@ a {
 
     &-inner{
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         margin: auto;
         width: 80%;
+        @include mq(sm) {
+            width: 90%;
+            
+        }
     }
 
     a{
@@ -491,6 +505,9 @@ a {
                     border-right: none;
                 }
             }
+        }
+        @include mq(sm) {
+            width: 100%;
         }
     }
 
